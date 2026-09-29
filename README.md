@@ -49,7 +49,7 @@ Adidas-US-Sales-Dashboard-PowerBI/
 3. **Added a `Retailer Key`** column (numeric ID 1–6 per retailer) using an Excel IF formula.
 4. **Removed an empty trailing column.**
 5. **Loaded the cleaned sheet into Power BI** (table `Data Sales Adidas`) through Power Query and checked data types (dates as Date, prices, units and profit as numbers).
-6. **Created a `DateTable`** in DAX and linked it to `Invoice Date` (one-to-many, DateTable on the 1 side).
+6. **Created a `DateTable`** in DAX, marked it as the date table, and linked it to `Invoice Date` (one-to-many, DateTable on the 1 side).
 
 Both the raw and cleaned files are included so the changes can be checked.
 
@@ -63,8 +63,16 @@ Both the raw and cleaned files are included so the changes can be checked.
 | Total Units Sold | **~18M** |
 | Total Operating Profit | **$332.1M** |
 | Average Operating Margin | **42.30%** |
+| Profit Margin (Profit ÷ Sales) | **36.9%** |
 
-**Date table:**
+**Year-over-year:**
+
+| | 2020 | 2021 | Growth |
+|---|---|---|---|
+| Sales | $182.1M | $717.8M | **+294.2%** |
+| Operating Profit | $63.4M | $268.8M | **+324.1%** |
+
+### Date table
 
 ```DAX
 DateTable =
@@ -81,7 +89,7 @@ ADDCOLUMNS(
 )
 ```
 
-**Measures:**
+### Core measures
 
 ```DAX
 Total Sales =
@@ -92,9 +100,23 @@ Total Units Sold = SUM('Data Sales Adidas'[Units Sold])
 Total Operating Profit = SUM('Data Sales Adidas'[Operating Profit])
 
 Average Operating Margin = AVERAGE('Data Sales Adidas'[Operating Margin])
+
+Profit Margin = DIVIDE([Total Operating Profit], [Total Sales], 0)
 ```
 
-> **Note:** Average Operating Margin (42.30%) is the simple average of every row's margin. Dividing total operating profit by total sales gives about 36.9%, which is a different measure.
+### Year-over-year measures
+
+```DAX
+Sales 2020 = CALCULATE([Total Sales], DateTable[Year] = 2020)
+Sales 2021 = CALCULATE([Total Sales], DateTable[Year] = 2021)
+Sales Growth % = DIVIDE([Sales 2021] - [Sales 2020], [Sales 2020], 0)
+
+Profit 2020 = CALCULATE([Total Operating Profit], DateTable[Year] = 2020)
+Profit 2021 = CALCULATE([Total Operating Profit], DateTable[Year] = 2021)
+Profit Growth % = DIVIDE([Profit 2021] - [Profit 2020], [Profit 2020], 0)
+```
+
+> **Note:** Average Operating Margin (42.30%) is the simple average of every row's margin. Profit Margin (36.9%) divides total profit by total sales, so the two figures differ.
 
 ---
 
