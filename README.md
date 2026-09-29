@@ -182,7 +182,7 @@ Profit Growth % = DIVIDE([Profit 2021] - [Profit 2020], [Profit 2020], 0)
 **Ankita Kumari**
 
 - 🎓 B.Com (Finance) | Aspiring Data Analyst
-- 🛠️ Skills: SQL · Excel · Power BI · Data Cleaning
+- 🛠️ Skills: Excel · Power BI · Data Cleaning
 - 🔗 GitHub: [ankita77-ui](https://github.com/ankita77-ui)
 
 ⭐ If you found this project useful, feel free to star the repository!
