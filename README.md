@@ -2,7 +2,7 @@
 
 An interactive **Power BI dashboard** analysing Adidas US sales for **FY 2020–2021** across retailers, regions, states, products and sales channels. It is designed so a VP can understand the business at a glance, on a single screen.
 
-![Adidas US Sales Dashboard](dashboard_preview.png)
+![Adidas US Sales Dashboard](dashboard_preview.png) 
 
 ---
 
